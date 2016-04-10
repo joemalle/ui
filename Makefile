@@ -22,3 +22,12 @@ runsass:
 
 preparejs:
 	cat $(JSFILES) > js/ui.js
+
+publish:
+	rsync -a . malle@login-course.engin.umich.edu:/home/malle/Public/html/ui/
+
+push:
+	git add .
+	git commit -m "Makefile commit"
+	git push
+
