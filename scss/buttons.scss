@@ -1,0 +1,115 @@
+@include ui(flat-button) {
+  @extend .ui-basic-button;
+  &[as=primary] { color: $colprimary; }
+  &[as=secondary] { color: $colsecondary; }
+  &[as=disabled] { @extend .ui-disabled; }
+}
+
+@include uihover(flat-button) {
+  background-color: rgba(153,153,153,0.2);
+}$button_default_size: 66px;
+$button_mini_size: #{2 * $button_default_size / 3};
+@include ui(floating-button) {
+  @extend .ui-basic-button;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+  border-radius: 100%;
+  overflow: hidden;
+  //-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  -webkit-transform: translateZ(0);
+  min-height: $button_default_size;
+  min-width: $button_default_size;
+  max-height: $button_default_size;
+  max-width: $button_default_size;
+  height: $button_default_size;
+  width: $button_default_size;
+  line-height: $button_default_size;
+  text-align: center;
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    background: lightgray;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05);
+  }
+  &[size=mini] {
+    min-width: $button_mini_size;
+    min-height: $button_mini_size;
+    max-width: $button_mini_size;
+    max-height: $button_mini_size;
+    width: $button_mini_size;
+    height: $button_mini_size;
+    line-height: $button_mini_size;
+  }
+}
+
+@include uihover(floating-button) {
+  background: rgba(0,0,0,0.05);
+  box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: lighten($colprimary, 7%);
+  }
+  &[as=secondary] {
+    background: lighten($colsecondary, 12%);
+  }
+}@include ui(icon-button) {
+  @extend .ui-basic-button;
+  min-width: 44px;
+  width: 44px;
+  line-height: 44px;
+  height: 44px;
+  overflow: initial;
+  border-radius: 100%;
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+  }
+  
+  $ripplesize: 40px;
+  
+  @include ui(ripple) {
+    position: absolute;
+    height: $ripplesize;
+    width: $ripplesize;
+    top: calc(50% - #{$ripplesize/2});
+    left: calc(50% - #{$ripplesize/2});
+    transition: left 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+  
+  &:before {
+    font-family: FontAwesome;
+  }
+}
+@include ui(raised-button) {
+  @extend .ui-basic-button;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    backround: lightgray;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05);
+  }
+}
+
+@include uihover(raised-button) {
+  background: rgba(0,0,0,0.05);
+  box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: lighten($colprimary, 7%);
+  }
+  &[as=secondary] {
+    background: lighten($colsecondary, 12%);
+  }
+}

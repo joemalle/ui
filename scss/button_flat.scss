@@ -1,0 +1,10 @@
+@include ui(flat-button) {
+  @extend .ui-basic-button;
+  &[as=primary] { color: $colprimary; }
+  &[as=secondary] { color: $colsecondary; }
+  &[as=disabled] { @extend .ui-disabled; }
+}
+
+@include uihover(flat-button) {
+  background-color: rgba(153,153,153,0.2);
+}

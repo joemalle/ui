@@ -1,0 +1,110 @@
+@include ui(input) {
+  position: relative;
+  display: inline-block;
+  background: white;
+  margin: 10px;
+  @extend .ui-transition;
+  
+  .ui-input-error {
+    color: red;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 5px;
+    opacity: 0;
+    @extend .ui-transition;
+  }
+  
+  &.haserror .ui-input-error {
+    opacity: 1;
+  }
+  
+  .ui-input-text {
+    @extend .ui-transition;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    min-height: 44px;
+    width: 300px;
+    resize: none;
+    font-size: 24px;
+    outline: none;
+    overflow: auto;
+    z-index: 5;
+    background: transparent;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  .ui-input-text:empty:after {
+    content: attr(placeholder);
+    color: lighten(lightgray, 0.3);
+  }
+  
+  .ui-input-text:before {
+    position: absolute;
+    content: "";
+    bottom: 5px;
+    left: 40%;
+    width: 20%;
+    height: 2px;
+    border-radius: 5px;
+    background: darkturquoise;
+    @extend .ui-transition;
+  }
+  
+  .ui-input-text:focus:before, .ui-input-text:not(:empty):before {
+    left: 0%;
+    width: 100%;
+  }
+  
+  .ui-input-title {
+    @extend .ui-heading;
+    font-size: 24px;
+    color: $coldefault;
+    position: absolute;
+    z-index: 3;
+    top: 16px;
+    left: 5px;
+    @extend .ui-transition;
+  }
+  
+  &[as=primary] {
+    .ui-input-title {
+      color: $colprimary;
+    }
+    
+    .ui-input-text:before {
+      background: $colprimary;
+    }
+  }
+  
+  &[as=secondary] {
+    
+    .ui-input-title {
+      color: $colsecondary;
+    }
+    
+    .ui-input-text:before {
+      background: $colsecondary;
+    }
+  }
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+    
+    .ui-input-title {
+      color: gray;
+    }
+    
+    .ui-input-text:before {
+      background: gray;
+    }
+  }
+  
+  .ui-input-text:focus ~ .ui-input-title, .ui-input-text:not(:empty) ~ .ui-input-title {
+    font-size: 10px;
+    top: 0px;
+    left: 0px;
+  }
+}

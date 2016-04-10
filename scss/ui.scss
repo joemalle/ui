@@ -1,0 +1,774 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,900);
+@mixin ui($sel) {
+  #{'ui-' + $sel + ', .ui-' + $sel} {
+    @content;
+  }
+}
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+@mixin prefix($name, $argument) {
+  -webkit-#{$name}: #{$argument};
+  -ms-#{$name}: #{$argument};
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+.ui-transition {
+  @include prefix(transition, all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms);
+}
+
+@mixin uihover($sel) {
+  #{'ui-' + $sel + ':not([as=disabled]):hover, .ui-' + $sel + ':not([as=disabled]):hover'} {
+    @content;
+  }
+}
+
+@mixin uiactive($sel) {
+  #{'ui-' + $sel + ':not([as=disabled]):active, .ui-' + $sel + ':not([as=disabled]):active'} {
+    @content;
+  }
+}
+
+.ui-blow-up-entry {
+  @include prefix(animation, ui-frames-blow-up);
+  @include prefix(animation-duration, 450ms);
+  @include prefix(animation-timing-function, cubic-bezier(0.23, 1, 0.32, 1));
+  @include prefix(animation-iteration-count, 1);
+}
+
+@include keyframes(ui-frames-blow-up) {
+  0%   {@include prefix(transform, scale(0.05))};
+  100% {@include prefix(transform, scale(1.00))};
+}
+
+
+.ui-no-select {
+  @include prefix(user-select, none);
+}
+
+.ui-general {
+  @extend .ui-no-select;
+  @extend .ui-transition;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  margin: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ui-heading {
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+}
+
+$coldefault: darkturquoise;
+$colprimary: hotpink;
+$colsecondary: deepskyblue;
+$coldisabled: gray;
+
+.ui-disabled {
+  color: $coldisabled;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ui-basic-button {
+  @extend .ui-blow-up-entry;
+  @extend .ui-general;
+  @extend .ui-heading;
+  padding: 0 10px;
+  height: auto;
+  width: initial;
+  border-radius: 2px;
+  background-color: transparent;
+  min-width: 88px;
+  line-height: 36px;
+  border: 1px dashed transparent;
+  &.ui-hasfocus {
+    border: 1px dashed blue;
+  }
+}
+
+@include ui(ripple) {
+  @extend .ui-no-select;
+  display: block;
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  border-radius: 100%;
+  opacity: 0;
+  background: gray;
+  @include prefix(animation, ui-frames-ripple);
+  @include prefix(animation-duration, 900ms);
+  @include prefix(animation-timing-function, cubic-bezier(0.23, 1, 0.32, 1));
+  @include prefix(animation-iteration-count, 1);
+}
+
+
+@include keyframes(ui-frames-ripple) {
+  0%   {
+    @include prefix(transform, scale(0.1));
+    opacity: 0.5;
+  };
+  100% {
+    @include prefix(transform, scale(1));
+    opacity: 0;
+  };
+}
+
+@include ui(label) {
+  @extend .ui-heading;
+  @extend .ui-no-select;
+  cursor: pointer;
+  display: inline-block;
+  text-transform: none;
+  line-height: 50px;
+  font-size: 20px;
+  vertical-align: top;
+  min-width: 300px;
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+  }
+}
+@include ui(badge) {
+  @extend .ui-general;
+  @extend .ui-no-select;
+  
+  @include prefix(animation, ui-frames-badge);
+  @include prefix(animation-duration, 900ms);
+  @include prefix(animation-timing-function, cubic-bezier(0.23, 1, 0.32, 1));
+  @include prefix(animation-iteration-count, 1);
+  
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  background: black;
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+  
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    background: lightgray;
+  }
+}
+
+@include keyframes(ui-frames-badge) {
+  0%   {
+    @include prefix(transform, scale(0.05));
+    border-radius: 0;
+  }
+  33%  {
+    @include prefix(transform, scale(0.05));
+    border-radius: 0;
+  }
+  66% {
+    @include prefix(transform, scale(1.00));
+    border-radius: 100%;
+  }
+  100% {
+    border-radius: 100%;
+  }
+}
+
+@include ui(flat-button) {
+  @extend .ui-basic-button;
+  &[as=primary] { color: $colprimary; }
+  &[as=secondary] { color: $colsecondary; }
+  &[as=disabled] { @extend .ui-disabled; }
+}
+
+@include uihover(flat-button) {
+  background-color: rgba(153,153,153,0.2);
+}$button_default_size: 66px;
+$button_mini_size: #{2 * $button_default_size / 3};
+@include ui(floating-button) {
+  @extend .ui-basic-button;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+  border-radius: 100%;
+  overflow: hidden;
+  //-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  -webkit-transform: translateZ(0);
+  min-height: $button_default_size;
+  min-width: $button_default_size;
+  max-height: $button_default_size;
+  max-width: $button_default_size;
+  height: $button_default_size;
+  width: $button_default_size;
+  line-height: $button_default_size;
+  text-align: center;
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    background: lightgray;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05);
+  }
+  &[size=mini] {
+    min-width: $button_mini_size;
+    min-height: $button_mini_size;
+    max-width: $button_mini_size;
+    max-height: $button_mini_size;
+    width: $button_mini_size;
+    height: $button_mini_size;
+    line-height: $button_mini_size;
+  }
+}
+
+@include uihover(floating-button) {
+  background: rgba(0,0,0,0.05);
+  box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: lighten($colprimary, 7%);
+  }
+  &[as=secondary] {
+    background: lighten($colsecondary, 12%);
+  }
+}@include ui(icon-button) {
+  @extend .ui-basic-button;
+  min-width: 44px;
+  width: 44px;
+  line-height: 44px;
+  height: 44px;
+  overflow: initial;
+  border-radius: 100%;
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+  }
+  
+  $ripplesize: 40px;
+  
+  @include ui(ripple) {
+    position: absolute;
+    height: $ripplesize;
+    width: $ripplesize;
+    top: calc(50% - #{$ripplesize/2});
+    left: calc(50% - #{$ripplesize/2});
+    transition: left 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+  
+  &:before {
+    font-family: FontAwesome;
+  }
+}
+@include ui(raised-button) {
+  @extend .ui-basic-button;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    backround: lightgray;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05),0 1px 4px rgba(0,0,0,0.05);
+  }
+}
+
+@include uihover(raised-button) {
+  background: rgba(0,0,0,0.05);
+  box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+  &[as=primary] {
+    background: lighten($colprimary, 7%);
+  }
+  &[as=secondary] {
+    background: lighten($colsecondary, 12%);
+  }
+}@include ui(list) {
+  @extend .ui-general;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+  height: initial;
+  width: initial;
+  min-width: 88px;
+  max-height: 500px;
+  max-width: 300px;
+  border-radius: 5px;
+  overflow-y: auto;
+  
+  
+  @include ui(item) {
+    display: block;
+    padding: 5px;
+    box-sizing: border-box;
+    min-height: 33px;
+    min-width: 88px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    line-height: 33px;
+    text-align: center;
+    border: 1px dashed transparent;
+    
+    /*&:hover {
+     background: lightgray;
+    }*/
+  }
+}@include ui(checkbox-switch) {
+  @extend .ui-general;
+  overflow: initial;
+  border-radius: 100%;
+  
+  &.ui-hasfocus {
+    border: 1px dashed blue;
+  }
+  
+  .ui-checkbox-switch-box {
+    z-index: 5;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    height: 50%;
+    width: 50%;
+    backround: white;
+    overflow: hidden;
+    opacity: 0.5;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 2px solid darkturquoise;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.1), 0 1px 5px rgba(0,0,0,0.02);
+    
+    > .ui-checkbox-switch-c {
+      line-height: 125%;
+      height: 100%;
+      font-family: FontAwesome;
+      font-weight: normal;
+      font-style: normal;
+      display: inline-block;
+      position: absolute;
+      text-decoration: inherit;
+      width: 110%;
+      height: 110%;
+      background: darkturquoise;
+      left: 110%;
+      top: 110%;
+      @include prefix(transform, scale(0.05));
+      transition: left 0s, 
+                  top 0s, 
+                  opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, 
+                  transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, 
+                  -webkit-transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    }
+    
+    > .ui-checkbox-switch-c:before {
+      color: white;
+      font-weight: 500;
+      content: "\f00c";
+    }
+  }
+  
+  &[as=primary] > .ui-checkbox-switch-box {
+    border: 2px solid $colprimary;
+    
+    > .ui-checkbox-switch-c {
+      background: $colprimary;
+    }
+  }
+
+  &[as=secondary] > .ui-checkbox-switch-box {
+    border: 2px solid $colsecondary;
+    
+    > .ui-checkbox-switch-c {
+      background: $colsecondary;
+    }
+  }
+
+  &[as=disabled] {
+    @extend .ui-disabled;
+    
+    > .ui-checkbox-switch-box {
+      border: 2px solid $coldisabled;
+      
+      > .ui-checkbox-switch-c {
+        background: $coldisabled;
+      }
+    }
+  }
+  
+  &[value=true] {
+    > .ui-checkbox-switch-box {
+        opacity: 1;
+        box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+      > .ui-checkbox-switch-c {
+        @include prefix(transform, scale(1));
+        left: -5%;
+        top: -5%;
+        opacity: 1;
+      }
+    }
+  }
+  
+  $ballsize: 50%;
+  
+  $ripplesize: 40px;
+  
+  @include ui(ripple) {
+    position: absolute;
+    height: $ripplesize;
+    width: $ripplesize;
+    top: calc(50% - #{$ripplesize/2});
+    left: calc(50% - #{$ripplesize/2});
+    transition: left 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+}
+@include ui(radio-group) {
+  @extend .ui-general;
+  position: relative;
+  display: block;
+  cursor: initial;
+  width: initial;
+  height: initial;
+  margin:0;
+  background: transparent;
+  
+  @include ui(radio-switch) {
+    
+    &.ui-hasfocus {
+      border: 2px dashed blue;
+    }
+    
+    @extend .ui-general;
+    display: inline-block;
+    z-index: 5;
+    position: relative;
+    padding: 11px;
+    height: 22px;
+    width: 22px;
+    background: white;
+    overflow: hidden;
+    opacity: 0.5;
+    box-sizing: border-box;
+    border-radius: 100%;
+    border: 2px solid darkturquoise;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.1), 0 1px 5px rgba(0,0,0,0.02);
+    
+    &.ui-selected {
+      box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+    }
+    
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: darkturquoise;
+      border-radius: 100%;
+      margin: 0;
+      padding: 0;
+      top: 110%;
+      left: 110%;
+      @include prefix(transform, scale(0.05));
+      transition: left 0s, 
+                  top 0s, 
+                  transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, 
+                  -webkit-transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    }
+    &.ui-selected:before {
+      top: 0;
+      left: 0;
+      @include prefix(transform, scale(0.8));
+    }
+    
+  }
+  
+  &[as=primary] > ui-radio-switch, &[as=primary] > .ui-radio-switch {
+    border: 2px solid $colprimary;
+    &.ui-hasfocus {
+      border: 2px dashed blue;
+    }
+  }
+  
+  &[as=primary]> ui-radio-switch.ui-selected:before, &[as=primary] > .ui-radio-switch.ui-selected:before {
+    background: $colprimary;
+    &.ui-hasfocus {
+      border: 2px dashed blue;
+    }
+  }
+  
+  &[as=secondary] > ui-radio-switch, &[as=secondary] > .ui-radio-switch {
+    border: 2px solid $colsecondary;
+    &.ui-hasfocus {
+      border: 2px dashed blue;
+    }
+  }
+  
+  &[as=secondary] > ui-radio-switch.ui-selected:before, &[as=secondary] > .ui-radio-switch.ui-selected:before {
+    background: $colsecondary;
+  }
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+  }
+  
+  &[as=disabled] > ui-radio-switch.ui-selected:before, &[as=disabled] > .ui-radio-switch.ui-selected:before {
+    background: gray;
+  }
+  
+  &[as=disabled] > ui-radio-switch, &[as=disabled] > .ui-radio-switch {
+    border: 2px solid gray;
+    &.ui-hasfocus {
+      border: 2px dashed blue;
+    }
+  }
+}@include ui(toggle-switch) {
+  @extend .ui-general;
+  overflow: initial;
+  border-radius: 100%;
+  
+  &.ui-hasfocus {
+    border: 1px dashed blue;
+  }
+  
+  @include ui(toggle-switch-bar) {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    height: 20%;
+    width: 90%;
+    background: darkturquoise;
+    opacity: 0.5;
+    border-radius: 5px;
+  }
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+  }
+  
+  &[value=false] > .ui-toggle-switch-bar {
+    background: gray;
+  }
+  
+  &[value=true][as=primary] > .ui-toggle-switch-bar {
+    background: lighten($colprimary, 10%);
+  }
+  
+  &[value=true][as=secondary] > .ui-toggle-switch-bar {
+    background: lighten($colsecondary, 10%);
+  }
+  
+  &[value=true][as=disabled] > .ui-toggle-switch-bar {
+    background: gray;
+  }
+  
+  $ballsize: 50%;
+  
+  @include ui(toggle-switch-ball) {
+    @extend .ui-blow-up-entry;
+    position: absolute;
+    height: $ballsize;
+    width: $ballsize;
+    top: #{50% - $ballsize/2};
+    border-radius: 100%;
+    background: cadetblue;
+    transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.4);
+  }
+  
+  $ripplesize: 40px;
+  
+  @include ui(ripple) {
+    position: absolute;
+    height: $ripplesize;
+    width: $ripplesize;
+    top: calc(50% - #{$ripplesize/2});
+    left: calc(50% - #{$ripplesize/2});
+    transition: left 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+  
+  &[value=false] {
+    @include ui(ripple) {
+      left: calc(#{6% + $ballsize/2} - #{$ripplesize/2});
+    }
+  }
+  
+  &[value=true] {
+    @include ui(ripple) {
+      left: calc(#{94% - $ballsize/2} - #{$ripplesize/2});
+    }
+  }
+  
+  &[value=false] > .ui-toggle-switch-ball {
+    left: 6%;
+    background: lighten(lightgray, 15%);
+  }
+  
+  &[value=true] > .ui-toggle-switch-ball {
+    left: #{94% - $ballsize};
+    background: cadetblue;
+  }
+  
+  &[value=true][as=primary] > .ui-toggle-switch-ball {
+    background: darken($colprimary, 10%);
+  }
+  
+  &[value=true][as=secondary] > .ui-toggle-switch-ball {
+    background: darken($colsecondary, 10%);
+  }
+  
+  &[as=disabled] > .ui-toggle-switch-ball {
+    background: gray;
+  }
+}
+
+.ui-toggle-switch ~ .ui-label,
+.ui-toggle-switch ~ ui-label ,
+ui-toggle-switch ~ .ui-label,
+ui-toggle-switch ~ ui-label {
+  line-height: 66px;
+}@include ui(input) {
+  position: relative;
+  display: inline-block;
+  background: white;
+  margin: 10px;
+  @extend .ui-transition;
+  
+  .ui-input-error {
+    color: red;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 5px;
+    opacity: 0;
+    @extend .ui-transition;
+  }
+  
+  &.haserror .ui-input-error {
+    opacity: 1;
+  }
+  
+  .ui-input-text {
+    @extend .ui-transition;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    min-height: 44px;
+    width: 300px;
+    resize: none;
+    font-size: 24px;
+    outline: none;
+    overflow: auto;
+    z-index: 5;
+    background: transparent;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  .ui-input-text:empty:after {
+    content: attr(placeholder);
+    color: lighten(lightgray, 0.3);
+  }
+  
+  .ui-input-text:before {
+    position: absolute;
+    content: "";
+    bottom: 5px;
+    left: 40%;
+    width: 20%;
+    height: 2px;
+    border-radius: 5px;
+    background: darkturquoise;
+    @extend .ui-transition;
+  }
+  
+  .ui-input-text:focus:before, .ui-input-text:not(:empty):before {
+    left: 0%;
+    width: 100%;
+  }
+  
+  .ui-input-title {
+    @extend .ui-heading;
+    font-size: 24px;
+    color: $coldefault;
+    position: absolute;
+    z-index: 3;
+    top: 16px;
+    left: 5px;
+    @extend .ui-transition;
+  }
+  
+  &[as=primary] {
+    .ui-input-title {
+      color: $colprimary;
+    }
+    
+    .ui-input-text:before {
+      background: $colprimary;
+    }
+  }
+  
+  &[as=secondary] {
+    
+    .ui-input-title {
+      color: $colsecondary;
+    }
+    
+    .ui-input-text:before {
+      background: $colsecondary;
+    }
+  }
+  
+  &[as=disabled] {
+    @extend .ui-disabled;
+    
+    .ui-input-title {
+      color: gray;
+    }
+    
+    .ui-input-text:before {
+      background: gray;
+    }
+  }
+  
+  .ui-input-text:focus ~ .ui-input-title, .ui-input-text:not(:empty) ~ .ui-input-title {
+    font-size: 10px;
+    top: 0px;
+    left: 0px;
+  }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo</title>
+    <link rel="stylesheet" type="text/css" href="css/ui.css">
+    <style>
+      .demobox {
+        position: relative;
+        width: 90%;
+        margin: 10px auto;
+        padding: 10px;
+        font-family: Arial;
+        border-radius: 5px;
+      }
+      .democontainer {
+        font-family: Roboto;
+        position: relative;
+        width: 90%;
+        margin: 10px auto;
+        padding: 20px;
+        display: table;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demobox">
+      <h1>Badge demo</h1>
+      <div class="democontainer">
+        <h2>Simple badges</h2>
+        <ui-icon-button class="fa-bluetooth">
+          <ui-badge>1</ui-badge>
+        </ui-icon-button>
+        <ui-icon-button class="fa-bluetooth">
+          <ui-badge as=primary>2</ui-badge>
+        </ui-icon-button>
+        <ui-icon-button class="fa-bluetooth">
+          <ui-badge as=secondary>3</ui-badge>
+        </ui-icon-button>
+        <ui-icon-button as=disabled class="fa-bluetooth">
+          <ui-badge as=disabled>4</ui-badge>
+        </ui-icon-button>
+      </div>
+    </div>
+    <div class="demobox">
+      <h1>Button demo</h1>
+      <div class="democontainer">
+        <h2>Flat button</h2>
+        <ui-flat-button>default</ui-flat-button>
+        <ui-flat-button as=primary>primary</ui-flat-button>
+        <ui-flat-button as=secondary>secondary</ui-flat-button>
+        <ui-flat-button as=disabled>disabled</ui-flat-button>
+      </div>
+      <div class="democontainer">
+        <h2>Floating button</h2>
+        <ui-floating-button>+</ui-floating-button>
+        <ui-floating-button size=mini>+</ui-floating-button>
+        <ui-floating-button as=primary>+</ui-floating-button>
+        <ui-floating-button as=primary size=mini>+</ui-floating-button>
+        <ui-floating-button as=secondary>+</ui-floating-button>
+        <ui-floating-button as=secondary size=mini>+</ui-floating-button>
+        <ui-floating-button as=disabled>+</ui-floating-button>
+        <ui-floating-button as=disabled size=mini>+</ui-floating-button>
+      </div>
+      <div class="democontainer">
+        <h2>Icon button</h2>
+        <ui-icon-button class="fa-bluetooth"></ui-icon-button>
+        <ui-icon-button class="fa-edge"></ui-icon-button>
+        <ui-icon-button class="fa-modx"></ui-icon-button>
+        <ui-icon-button as="disabled" class="fa-bank"></ui-icon-button>
+      </div>
+      <div class="democontainer">
+        <h2>Raised button</h2>
+        <ui-raised-button>default</ui-raised-button>
+        <ui-raised-button as=primary>primary</ui-raised-button>
+        <ui-raised-button as=secondary>secondary</ui-raised-button>
+        <ui-raised-button as=disabled>disabled</ui-raised-button>
+      </div>
+    </div>
+    <div class="demobox">
+      <h1>MUTATION Observer Demo</h1>
+      <div class="democontainer" style="text-align: left;">
+        <p>
+        Click the raised button to add a floating button.
+        When you click the raised button, the following code will execute:
+        </p>
+        <code>
+        function makeIconButton(parent_) {<br/>
+        &emsp;var el = document.createElement(&quot;UI-FLOATING-BUTTON&quot;);<br/>
+        &emsp;el.appendChild(<br/>
+        &emsp;&emsp;document.createTextNode(&quot;+&quot;)<br/>
+        &emsp;);<br/>
+        &emsp;parent_.appendChild(el);<br/>
+        }<br/>
+        </code>
+        <script>
+        function makeIconButton(parent_) {
+          var el = document.createElement("UI-FLOATING-BUTTON");
+          el.appendChild(
+            document.createTextNode("+")
+          );
+          parent_.appendChild(el);
+        }
+        function newElEvent(evt_) {
+          makeIconButton(document.getElementById("mutation_demo_parent"));
+        }
+        </script>
+        <ui-raised-button onclick="newElEvent()">New Element</ui-raised-button>
+        <div id="mutation_demo_parent"></div>
+        <p>Note that you can navigate these buttons via the tab and space interface.</p>
+
+      </div>
+    <div class="demobox">
+      <h1>Input demo</h1>
+      <div class="democontainer">
+        <h2>Basics</h2>
+        <ui-input value="Default value"></ui-input><br/>
+        <ui-input placeholder="Placeholder"></ui-input><br/>
+        <ui-input placeholder="Text wraps"></ui-input><br/>
+        <ui-input title="Titles work"></ui-input><br/>
+        <ui-input validate="^[a-zA-Z]+$" error="Only letters here" placeholder="Enter letters"></ui-input><br/>
+        <ui-input as="primary" title="Primary e.g."></ui-input><br/>
+        <ui-input as="secondary" title="Secondary e.g."></ui-input><br/>
+        <ui-input as="disabled" title="Disabled e.g."></ui-input><br/>
+      </div>
+    </div>
+    <div class="demobox">
+      <h1>List demo</h1>
+      <div class="democontainer">
+        <h2>Simple list</h2>
+        <ui-list>
+          <ui-item>Hello</ui-item>
+          <ui-item>World</ui-item>
+          <ui-item>Goodbye</ui-item>
+          <ui-item>World</ui-item>
+        </ui-list>
+      </div>
+    </div>
+    <div class="demobox">
+      <h1>Switch demo</h1>
+      <div class="democontainer">
+        <h2>Checkbox switch</h2>
+        <ui-checkbox-switch value="true"></ui-checkbox-switch>
+        <ui-checkbox-switch value="false" as="primary"></ui-checkbox-switch>
+        <ui-checkbox-switch value="true" as="secondary"></ui-checkbox-switch>
+        <ui-checkbox-switch value="false" as="disabled"></ui-checkbox-switch>
+      </div>
+      <div class="democontainer">
+        <h2>Toggle switch</h2>
+        <ui-toggle-switch id="tgd1" value="true"></ui-toggle-switch><ui-label for="tgd1">first</ui-label><br/>
+        <ui-toggle-switch id="tgd2" value="false" as="primary"></ui-toggle-switch><ui-label for="tgd2">second</ui-label><br/>
+        <ui-toggle-switch id="tgd3" value="true" as="secondary"></ui-toggle-switch><ui-label for="tgd3">third</ui-label><br/>
+        <ui-toggle-switch id="tgd4" value="false" as="disabled"></ui-toggle-switch><ui-label as="disabled" for="tgd4">fourth</ui-label><br/>
+      </div>
+      <div class="democontainer">
+        <h2>Radio switch</h2>
+        <ui-radio-group value="0">
+          <ui-radio-switch id="cbd1" class="ui-selected"></ui-radio-switch><ui-label for="cbd1">Zero</ui-label><br/>
+          <ui-radio-switch id="cbd2"></ui-radio-switch><ui-label for="cbd2">Creativity</ui-label><br/>
+          <ui-radio-switch id="cbd3"></ui-radio-switch><ui-label for="cbd3">Remaining</ui-label><br/>
+          <ui-label for="cbd4">For labels</ui-label><ui-radio-switch id="cbd4"></ui-radio-switch><br/>
+        </ui-radio-group>
+        <ui-radio-group value="1" as="primary">
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch class="ui-selected"></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+        </ui-radio-group>
+        <ui-radio-group value="2" as="secondary">
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch class="ui-selected"></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+        </ui-radio-group>
+        <ui-radio-group value="3" as="disabled">
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch></ui-radio-switch>
+          <ui-radio-switch class="ui-selected"></ui-radio-switch>
+        </ui-radio-group>
+      </div>
+    </div>
+    <script src="js/ui.js"></script>
+  </body>
+</html>

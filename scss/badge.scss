@@ -1,0 +1,53 @@
+@include ui(badge) {
+  @extend .ui-general;
+  @extend .ui-no-select;
+  
+  @include prefix(animation, ui-frames-badge);
+  @include prefix(animation-duration, 900ms);
+  @include prefix(animation-timing-function, cubic-bezier(0.23, 1, 0.32, 1));
+  @include prefix(animation-iteration-count, 1);
+  
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  background: black;
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+  
+  &[as=primary] {
+    background: $colprimary;
+    color: white;
+  }
+  &[as=secondary] {
+    background: $colsecondary;
+    color:white;
+  }
+  &[as=disabled] {
+    @extend .ui-disabled;
+    background: lightgray;
+  }
+}
+
+@include keyframes(ui-frames-badge) {
+  0%   {
+    @include prefix(transform, scale(0.05));
+    border-radius: 0;
+  }
+  33%  {
+    @include prefix(transform, scale(0.05));
+    border-radius: 0;
+  }
+  66% {
+    @include prefix(transform, scale(1.00));
+    border-radius: 100%;
+  }
+  100% {
+    border-radius: 100%;
+  }
+}
+

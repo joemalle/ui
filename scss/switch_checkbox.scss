@@ -1,0 +1,107 @@
+@include ui(checkbox-switch) {
+  @extend .ui-general;
+  overflow: initial;
+  border-radius: 100%;
+  
+  &.ui-hasfocus {
+    border: 1px dashed blue;
+  }
+  
+  .ui-checkbox-switch-box {
+    z-index: 5;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    height: 50%;
+    width: 50%;
+    backround: white;
+    overflow: hidden;
+    opacity: 0.5;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 2px solid darkturquoise;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.1), 0 1px 5px rgba(0,0,0,0.02);
+    
+    > .ui-checkbox-switch-c {
+      line-height: 125%;
+      height: 100%;
+      font-family: FontAwesome;
+      font-weight: normal;
+      font-style: normal;
+      display: inline-block;
+      position: absolute;
+      text-decoration: inherit;
+      width: 110%;
+      height: 110%;
+      background: darkturquoise;
+      left: 110%;
+      top: 110%;
+      @include prefix(transform, scale(0.05));
+      transition: left 0s, 
+                  top 0s, 
+                  opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, 
+                  transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, 
+                  -webkit-transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    }
+    
+    > .ui-checkbox-switch-c:before {
+      color: white;
+      font-weight: 500;
+      content: "\f00c";
+    }
+  }
+  
+  &[as=primary] > .ui-checkbox-switch-box {
+    border: 2px solid $colprimary;
+    
+    > .ui-checkbox-switch-c {
+      background: $colprimary;
+    }
+  }
+
+  &[as=secondary] > .ui-checkbox-switch-box {
+    border: 2px solid $colsecondary;
+    
+    > .ui-checkbox-switch-c {
+      background: $colsecondary;
+    }
+  }
+
+  &[as=disabled] {
+    @extend .ui-disabled;
+    
+    > .ui-checkbox-switch-box {
+      border: 2px solid $coldisabled;
+      
+      > .ui-checkbox-switch-c {
+        background: $coldisabled;
+      }
+    }
+  }
+  
+  &[value=true] {
+    > .ui-checkbox-switch-box {
+        opacity: 1;
+        box-shadow: 0 1px 7px rgba(0,0,0,0.12), 0 1px 5px rgba(0,0,0,0.12);
+      > .ui-checkbox-switch-c {
+        @include prefix(transform, scale(1));
+        left: -5%;
+        top: -5%;
+        opacity: 1;
+      }
+    }
+  }
+  
+  $ballsize: 50%;
+  
+  $ripplesize: 40px;
+  
+  @include ui(ripple) {
+    position: absolute;
+    height: $ripplesize;
+    width: $ripplesize;
+    top: calc(50% - #{$ripplesize/2});
+    left: calc(50% - #{$ripplesize/2});
+    transition: left 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+}
