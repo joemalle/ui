@@ -8,7 +8,10 @@
   max-width: 300px;
   border-radius: 5px;
   overflow-y: auto;
-  
+  @include prefix(transform-origin, top);
+  @include prefix(animation, ui-list-entry);
+  @include prefix(animation-duration, 250ms);
+  @include prefix(animation-iteration-count, 1);
   
   @include ui(item) {
     display: block;
@@ -28,3 +31,44 @@
     }*/
   }
 }
+
+
+@include keyframes(ui-list-entry) {
+  0%   {
+    @include prefix(transform, scaleY(0.1));
+    opacity: 0;
+  }
+  100% {
+    @include prefix(transform, scaleY(1));
+    opacity: 1;
+  }
+}
+
+@include ui(select) {
+  @extend .ui-general;
+  width: 300px;
+  @include ui(selected-item) {
+    &:after {
+      content: "v";
+      transition: all 0;
+      top:0;
+      right: 0;
+      position: absolute;
+      height: 100%;
+      width: 30px;
+      background: red;
+    }
+    border-radius: 10px;
+    box-shadow: 0 2px 9px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.12);
+    overflow: hidden;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+  @include ui(list) {
+    position:absolute;
+  }
+}
+
